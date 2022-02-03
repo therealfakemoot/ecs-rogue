@@ -1,0 +1,16 @@
+github.com/EngoEngine/ecs v1.0.5 h1:S21KTClrAqC862BFR5wTkd6uEYQ0Aw/ob9RjKPt0e30=
+github.com/EngoEngine/ecs v1.0.5/go.mod h1:A8AYbzKIsl+t4qafmLL3t4H6cXdfGo4CIHl7EN100iM=
+github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/go-playground/assert/v2 v2.0.1/go.mod h1:VDjEfimB/XKnb+ZQfWdccd7VUvScMdVu0Titje2rxJ4=
+github.com/leopotam/go-ecs v0.0.0-20210307213804-a3ab96b9d289/go.mod h1:NHVW8ZI99vazv2fs0lXpa78iXZyN5QM/fbHGgcqHYe4=
+github.com/marioolofo/go-gameengine-ecs v0.0.0-20220120124910-309f8384e44e/go.mod h1:YptmFsn359Z4KR6GK4xoFb74auGWY4uvnlpjGNOTtEg=
+github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+github.com/therealfakemoot/go-gameengine-ecs v0.0.0-20220128190310-fc29c2c74db4 h1:AfZa1DYpt3STm3cOD/+dHJGX4lWhwpK4e3AHGcdsC20=
+github.com/therealfakemoot/go-gameengine-ecs v0.0.0-20220128190310-fc29c2c74db4/go.mod h1:Mb/an7FwhOEQGNcummxtQlqtclOlwsrbIqkTla/Ee/c=
+github.com/tutumagi/gecs v0.1.0/go.mod h1:6FAWO8Bv48K7N2nLHzgsGgg9yvJdkyGa9yM1P5ZEAKQ=
+github.com/wfranczyk/ento v0.1.0/go.mod h1:oiJdFEvu66RU8kZwEySB/xfizPLQ/maChXwYPxY3l9o=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
