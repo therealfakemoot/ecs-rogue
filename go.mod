@@ -2,6 +2,11 @@ module github.com/therealfakemoot/ecs-rogue
 
 go 1.17
 
-require github.com/therealfakemoot/go-gameengine-ecs v0.0.0-20220128190310-fc29c2c74db4
+require github.com/fatih/color v1.13.0
 
-require github.com/EngoEngine/ecs v1.0.5 // indirect
+require (
+	github.com/EngoEngine/ecs v1.0.5
+	github.com/mattn/go-colorable v0.1.9 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
+	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
+)

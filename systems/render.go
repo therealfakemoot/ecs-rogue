@@ -2,9 +2,10 @@ package systems
 
 import (
 	"bytes"
-	"fmt"
+	// "fmt"
 	"io"
-	// "log"
+	"log"
+	"text/template"
 
 	"github.com/EngoEngine/ecs"
 	"github.com/therealfakemoot/ecs-rogue/components"
@@ -14,10 +15,12 @@ type TerminalRenderSystem struct {
 	World    *ecs.World
 	W        io.Writer
 	Entities map[uint64]Renderable
+	T        *template.Template
 }
 
 func (trs *TerminalRenderSystem) New(w *ecs.World) {
 	trs.World = w
+	trs.T = template.Must(template.ParseGlob("templates/*.tpl"))
 }
 
 type Renderable interface {
@@ -37,6 +40,10 @@ func (trs *TerminalRenderSystem) Add(r Renderable) {
 
 func (trs TerminalRenderSystem) Update(dt float32) {
 	var b bytes.Buffer
+	data := struct {
+		Player *components.PlayerComponent
+		Mobs   []*components.MobComponent
+	}{}
 	for _, e := range trs.Entities {
 		// log.Printf("rendering entity %d: %#+v\n", id, e)
 		v := e.(components.RenderComponentInterface)
@@ -45,8 +52,16 @@ func (trs TerminalRenderSystem) Update(dt float32) {
 		case components.RenderPlayer:
 			p := e.(components.PlayerComponentInterface)
 			pc := p.GetPlayerComponent()
-			fmt.Fprintf(&b, "%s(hp/hpMax)(mana/manaMax)\n", pc.Name)
-
+			data.Player = pc
+			// fmt.Fprintf(&b, "%s(hp/hpMax)(mana/manaMax)\n", pc.Name)
+			err := trs.T.ExecuteTemplate(&b, "tick.tpl", data)
+			if err != nil {
+				log.Fatalf("error rendering player template: %s", err)
+			}
+		case components.RenderMob:
+			m := e.(components.MobComponentInterface)
+			mob := m.GetMobComponent()
+			data.Mobs = append(data.Mobs, mob)
 		}
 	}
 	io.Copy(trs.W, &b)
