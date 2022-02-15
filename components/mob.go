@@ -14,39 +14,6 @@ const (
 	RenderTransition
 )
 
-type PlayerComponentInterface interface {
-	GetPlayerComponent() *PlayerComponent
-}
-
-type PlayerComponent struct {
-	Name string
-}
-
-func (pc *PlayerComponent) GetPlayerComponent() *PlayerComponent {
-	return pc
-}
-
-type RenderComponentInterface interface {
-	GetRenderComponent() *RenderComponent
-}
-
-type RenderComponent struct {
-	Vis     bool
-	Type    RenderType
-	Payload map[string]string
-}
-
-func (rc *RenderComponent) GetRenderComponent() *RenderComponent {
-	return rc
-}
-
-type Player struct {
-	ecs.BasicEntity
-	PlayerComponent
-	RenderComponent
-	MobComponent
-}
-
 type Mob struct {
 	ecs.BasicEntity
 	RenderComponent
