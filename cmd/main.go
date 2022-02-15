@@ -13,14 +13,15 @@ func main() {
 	w := &ecs.World{}
 
 	var renderable *systems.Renderable
-	trs := &systems.TerminalRenderSystem{W: os.Stdout}
+	trs := &systems.TerminalRenderSystem{W: os.Stdout, Entities: make(map[uint64]systems.Renderable)}
 	w.AddSystemInterface(trs, renderable, nil)
 
-	p := components.Player{}
+	p := components.Player{BasicEntity: ecs.NewBasic()}
 	p.RenderComponent.Type = components.RenderPlayer
 	p.Name = "Jumbo Chungus"
 
-	m := components.Mob{}
+	m := components.Mob{BasicEntity: ecs.NewBasic()}
+	m.RenderComponent.Type = components.RenderMob
 
 	w.AddEntity(&p)
 	w.AddEntity(&m)
