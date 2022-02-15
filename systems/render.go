@@ -43,9 +43,9 @@ func (trs TerminalRenderSystem) Update(dt float32) {
 	data := struct {
 		Player *components.PlayerComponent
 		Mobs   []*components.MobComponent
+		MobHP  int
 	}{}
 	for _, e := range trs.Entities {
-		// log.Printf("rendering entity %d: %#+v\n", id, e)
 		v := e.(components.RenderComponentInterface)
 		rc := v.GetRenderComponent()
 		switch rc.Type {
@@ -54,15 +54,20 @@ func (trs TerminalRenderSystem) Update(dt float32) {
 			pc := p.GetPlayerComponent()
 			data.Player = pc
 			// fmt.Fprintf(&b, "%s(hp/hpMax)(mana/manaMax)\n", pc.Name)
-			err := trs.T.ExecuteTemplate(&b, "player_tick.tpl", data)
-			if err != nil {
-				log.Fatalf("error rendering player template: %s", err)
-			}
 		case components.RenderMob:
 			m := e.(components.MobComponentInterface)
 			mob := m.GetMobComponent()
+			data.MobHP += mob.Health.Max
 			data.Mobs = append(data.Mobs, mob)
 		}
+	}
+	err := trs.T.ExecuteTemplate(&b, "player_tick.tpl", data)
+	if err != nil {
+		log.Fatalf("error rendering player template: %s", err)
+	}
+	err = trs.T.ExecuteTemplate(&b, "mob_tick.tpl", data)
+	if err != nil {
+		log.Fatalf("error rendering mob template: %s", err)
 	}
 	io.Copy(trs.W, &b)
 }
