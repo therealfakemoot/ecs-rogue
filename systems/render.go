@@ -54,7 +54,7 @@ func (trs TerminalRenderSystem) Update(dt float32) {
 			pc := p.GetPlayerComponent()
 			data.Player = pc
 			// fmt.Fprintf(&b, "%s(hp/hpMax)(mana/manaMax)\n", pc.Name)
-			err := trs.T.ExecuteTemplate(&b, "tick.tpl", data)
+			err := trs.T.ExecuteTemplate(&b, "player_tick.tpl", data)
 			if err != nil {
 				log.Fatalf("error rendering player template: %s", err)
 			}

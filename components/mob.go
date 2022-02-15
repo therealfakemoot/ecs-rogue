@@ -25,25 +25,12 @@ type MobComponentInterface interface {
 }
 
 type MobComponent struct {
-	HealthComponent
+	Health ResourceBarComponent
 	SpatialComponent
 }
 
 func (mc *MobComponent) GetMobComponent() *MobComponent {
 	return mc
-}
-
-type HealthComponentInterface interface {
-	GetHealthComponent() *HealthComponent
-}
-
-type HealthComponent struct {
-	HP    int
-	Regen float64
-}
-
-func (hc *HealthComponent) HealthComponent() *HealthComponent {
-	return hc
 }
 
 type SpatialComponentInterface interface {

@@ -1,6 +1,7 @@
 package main
 
 import (
+	// "fmt"
 	"os"
 
 	"github.com/EngoEngine/ecs"
@@ -19,6 +20,11 @@ func main() {
 	p := components.Player{BasicEntity: ecs.NewBasic()}
 	p.RenderComponent.Type = components.RenderPlayer
 	p.Name = "Jumbo Chungus"
+	p.PlayerComponent.Health.Max = 100
+	p.PlayerComponent.Health.Total = 13
+	p.PlayerComponent.Mana.Max = 100
+	p.PlayerComponent.Mana.Total = 69
+	// p.Health.Total = 87
 
 	m := components.Mob{BasicEntity: ecs.NewBasic()}
 	m.RenderComponent.Type = components.RenderMob
