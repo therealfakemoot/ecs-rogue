@@ -31,7 +31,7 @@ type RenderComponentInterface interface {
 }
 
 type RenderComponent struct {
-	Render  bool
+	Vis     bool
 	Type    RenderType
 	Payload map[string]string
 }

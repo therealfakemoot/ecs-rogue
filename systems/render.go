@@ -1,9 +1,10 @@
 package systems
 
 import (
+	"bytes"
 	"fmt"
 	"io"
-	"log"
+	// "log"
 
 	"github.com/EngoEngine/ecs"
 	"github.com/therealfakemoot/ecs-rogue/components"
@@ -12,7 +13,7 @@ import (
 type TerminalRenderSystem struct {
 	World    *ecs.World
 	W        io.Writer
-	Entities ecs.IdentifierSlice
+	Entities map[uint64]Renderable
 }
 
 func (trs *TerminalRenderSystem) New(w *ecs.World) {
@@ -26,32 +27,31 @@ type Renderable interface {
 
 func (trs *TerminalRenderSystem) AddByInterface(o ecs.Identifier) {
 	obj := o.(Renderable)
-	trs.Add(obj.GetBasicEntity())
+	trs.Add(obj)
 }
 
-func (trs *TerminalRenderSystem) Add(b *ecs.BasicEntity) {
-	trs.Entities = append(trs.Entities, b)
+func (trs *TerminalRenderSystem) Add(r Renderable) {
+	trs.Entities[r.GetBasicEntity().ID()] = r
+	// trs.Entities = append(trs.Entities, r)
 }
 
 func (trs TerminalRenderSystem) Update(dt float32) {
+	var b bytes.Buffer
 	for _, e := range trs.Entities {
-		v, ok := e.(components.RenderComponentInterface)
-		if !ok {
-			log.Fatalf("shit 1")
-		}
+		// log.Printf("rendering entity %d: %#+v\n", id, e)
+		v := e.(components.RenderComponentInterface)
 		rc := v.GetRenderComponent()
 		switch rc.Type {
 		case components.RenderPlayer:
-			p, ok := e.(components.PlayerComponentInterface)
-			if !ok {
-				log.Fatalf("shit 1")
-			}
+			p := e.(components.PlayerComponentInterface)
 			pc := p.GetPlayerComponent()
-			fmt.Fprintf(trs.W, "%s(100/100)(45/75)", pc.Name)
+			fmt.Fprintf(&b, "%s(hp/hpMax)(mana/manaMax)\n", pc.Name)
 
 		}
-		log.Printf("%#+v\n", e)
 	}
+	io.Copy(trs.W, &b)
 }
 
-func (trs *TerminalRenderSystem) Remove(e ecs.BasicEntity) {}
+func (trs *TerminalRenderSystem) Remove(e ecs.BasicEntity) {
+	delete(trs.Entities, e.ID())
+}
