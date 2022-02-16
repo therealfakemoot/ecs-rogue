@@ -17,10 +17,11 @@ func main() {
 	w := &ecs.World{}
 
 	var renderable *systems.Renderable
+	var spawnable *systems.Spawnable
 	trs := &systems.TerminalRenderSystem{W: os.Stdout, Entities: make(map[uint64]systems.Renderable)}
-	mss := systems.MobSpawnerSystem{}
+	mss := &systems.MobSpawnerSystem{}
 	w.AddSystemInterface(trs, renderable, nil)
-	w.AddSystem(mss)
+	w.AddSystemInterface(mss, spawnable, nil)
 
 	p := components.Player{BasicEntity: ecs.NewBasic()}
 	p.RenderComponent.Type = components.RenderPlayer

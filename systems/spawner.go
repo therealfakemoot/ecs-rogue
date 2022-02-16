@@ -2,8 +2,13 @@ package systems
 
 import (
 	"github.com/EngoEngine/ecs"
-	// "github.com/therealfakemoot/ecs-rogue/components"
+	"github.com/therealfakemoot/ecs-rogue/components"
 )
+
+type Spawnable interface {
+	ecs.BasicFace
+	components.MobComponentInterface
+}
 
 type MobSpawnerSystem struct {
 	World *ecs.World
