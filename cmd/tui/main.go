@@ -37,14 +37,21 @@ func main() {
 	// w.Update(1)
 
 	app := tview.NewApplication()
-	logBox := tview.NewBox().SetBorder(true).SetTitle("Log")
+	table := tview.NewTable().SetBorders(true)
+	NewTableRow(table, []string{"level", "You exit the dungeons into frigid mountain winds..."}, 0)
+	NewTableRow(table, []string{"gold", "+24"}, 1)
+	NewTableRow(table, []string{"exp", "+5"}, 2)
+	NewTableRow(table, []string{"item", "morbid finger | sapphire ring"}, 3)
+	NewTableRow(table, []string{"level", "The mountain foothils turn into rolling plains..."}, 4)
+	// logBox := tview.NewBox().SetBorder(true).SetTitle("Log")
+	logBox := tview.NewFlex().AddItem(table, 0, 1, false)
 
 	flex := tview.NewFlex().
 		AddItem(logBox, 0, 1, false).
 		AddItem(tview.NewFlex().SetDirection(tview.FlexRow).
-			AddItem(tview.NewBox().SetBorder(true).SetTitle("Top"), 0, 2, false).
-			AddItem(tview.NewBox().SetBorder(true).SetTitle("Middle (3 x height of Top)"), 0, 3, false).
-			AddItem(tview.NewBox().SetBorder(true).SetTitle("Bottom (5 rows)"), 5, 1, false), 0, 2, false)
+			AddItem(tview.NewBox().SetBorder(true).SetTitle("Player"), 0, 2, false).
+			AddItem(tview.NewBox().SetBorder(true).SetTitle("Enemies"), 0, 3, false).
+			AddItem(tview.NewBox().SetBorder(true).SetTitle("Progression"), 5, 1, false), 0, 2, false)
 	frame := tview.NewFrame(flex)
 	border := 1
 	text := 2
