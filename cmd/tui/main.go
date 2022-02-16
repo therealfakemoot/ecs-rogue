@@ -18,7 +18,9 @@ func main() {
 
 	var renderable *systems.Renderable
 	trs := &systems.TerminalRenderSystem{W: os.Stdout, Entities: make(map[uint64]systems.Renderable)}
+	mss := systems.MobSpawnerSystem{}
 	w.AddSystemInterface(trs, renderable, nil)
+	w.AddSystem(mss)
 
 	p := components.Player{BasicEntity: ecs.NewBasic()}
 	p.RenderComponent.Type = components.RenderPlayer
@@ -37,14 +39,17 @@ func main() {
 	// w.Update(1)
 
 	app := tview.NewApplication()
-	table := tview.NewTable().SetBorders(true)
-	NewTableRow(table, []string{"level", "You exit the dungeons into frigid mountain winds..."}, 0)
-	NewTableRow(table, []string{"gold", "+24"}, 1)
-	NewTableRow(table, []string{"exp", "+5"}, 2)
-	NewTableRow(table, []string{"item", "morbid finger | sapphire ring"}, 3)
-	NewTableRow(table, []string{"level", "The mountain foothils turn into rolling plains..."}, 4)
-	// logBox := tview.NewBox().SetBorder(true).SetTitle("Log")
-	logBox := tview.NewFlex().AddItem(table, 0, 1, false)
+	logTable := tview.NewTable().SetBorders(true)
+	logFrame := tview.NewFrame(logTable)
+	NewTableRow(logTable, []string{"level", "You exit the dungeons into frigid mountain winds..."}, 0)
+	NewTableRow(logTable, []string{"gold", "+24"}, 1)
+	NewTableRow(logTable, []string{"exp", "+5"}, 2)
+	NewTableRow(logTable, []string{"item", "morbid finger | sapphire ring"}, 3)
+	NewTableRow(logTable, []string{"level", "The mountain foothils turn into rolling plains..."}, 4)
+	NewTableRow(logTable, []string{"gold", "+85"}, 5)
+	NewTableRow(logTable, []string{"exp", "+24"}, 6)
+	logFrame.AddText("Action Log", true, tview.AlignLeft, tcell.ColorGoldenrod)
+	logBox := tview.NewFlex().AddItem(logFrame, 0, 1, false)
 
 	flex := tview.NewFlex().
 		AddItem(logBox, 0, 1, false).
