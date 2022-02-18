@@ -45,6 +45,16 @@ func (trs TUIRenderSystem) Update(dt float32) {
 	// to cover things like screen effects:
 	//   writing garbage bytes to a random subset of on-screen locations to distort the UI
 	//   ??????
+
+	// HP Bar TextView
+	// Mana Bar TextView
+	// Weapon View
+	// Armor View
+	// Trinket View
+	go func() {
+		trs.App.QueueUpdateDraw(func() {
+		})
+	}()
 	for _, e := range trs.Entities {
 		v := e.(components.RenderComponentInterface)
 		rc := v.GetRenderComponent()

@@ -1,16 +1,20 @@
 package main
 
 import (
-	"os/signal"
-	"syscall"
-	"time"
+	// "os/signal"
+	// "syscall"
+	// "time"
 	// "fmt"
-	"os"
+	// "os"
 
 	"github.com/EngoEngine/ecs"
 
 	"github.com/therealfakemoot/ecs-rogue/components"
 	"github.com/therealfakemoot/ecs-rogue/systems"
+	"github.com/therealfakemoot/ecs-rogue/ui"
+
+	// "github.com/gdamore/tcell/v2"
+	"github.com/rivo/tview"
 )
 
 func main() {
@@ -37,25 +41,36 @@ func main() {
 	m.RenderComponent.Type = components.RenderMob
 
 	w.AddEntity(&p)
+
+
+	// the Application should just get passed into the UISystem. The UISystem can have a method I fire off as a goroutine that acts as the event loop for the game. maybe?
+
+	app := tview.NewApplication()
+	frame := ui.BaseFrame()
+	if err := app.SetRoot(frame, true).SetFocus(frame).Run(); err != nil {
+		panic(err)
+	}
 	// w.AddEntity(&m)
-	t := time.NewTicker(1 * time.Second)
-	done := make(chan bool)
-	go func() {
-		for {
-			select {
-			case <-done:
-				return
-			case <-t.C:
-				w.Update(1)
+	/*
+		t := time.NewTicker(1 * time.Second)
+		done := make(chan bool)
+		go func() {
+			for {
+				select {
+				case <-done:
+					return
+				case <-t.C:
+					w.Update(1)
 
+				}
 			}
-		}
-	}()
+		}()
 
-	// Wait here until CTRL-C or other term signal is received.
-	// fmt.Println("Bot is now running.  Press CTRL-C to exit.")
-	sc := make(chan os.Signal, 1)
-	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
-	<-sc
-	done <- true
+		// Wait here until CTRL-C or other term signal is received.
+		// fmt.Println("Bot is now running.  Press CTRL-C to exit.")
+		sc := make(chan os.Signal, 1)
+		signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+		<-sc
+		done <- true
+	*/
 }
