@@ -36,7 +36,6 @@ func main() {
 	m.RenderComponent.Type = components.RenderMob
 
 	w.AddEntity(&p)
-	w.AddEntity(&m)
 	// w.Update(1)
 
 	app := tview.NewApplication()
