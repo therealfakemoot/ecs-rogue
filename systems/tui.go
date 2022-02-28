@@ -53,6 +53,7 @@ func (trs TUIRenderSystem) Update(dt float32) {
 	// Trinket View
 	go func() {
 		trs.App.QueueUpdateDraw(func() {
+			// here is where we write new values to the various views that get updated
 		})
 	}()
 	for _, e := range trs.Entities {

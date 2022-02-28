@@ -67,6 +67,7 @@ type Base struct {
 	Armor       *tview.TextView
 	Trinket     *tview.TextView
 	Log         tview.TableContent
+	Monsters    tview.TableContent
 }
 
 func NewBase() *Base {
